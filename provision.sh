@@ -16,7 +16,6 @@ sudo git clone https://github.com/cloudacademy/static-website-example /var/www/p
 #Asignar permisos correspondientes
 sudo chown -R www-data:www-data /var/www/pagina_web/html
 sudo chmod -R 755 /var/www/pagina_web
-sudo chmod 755 /var/www/pagina_web
 
 
 
@@ -83,27 +82,31 @@ sudo ln -s /etc/nginx/sites-available/kaze /etc/nginx/sites-enabled
 sudo systemctl restart nginx
 
 
+sudo apt-get update
+
 #Creamos un usuario 
 
 sudo adduser david
 echo "david:david" | sudo chpasswd
 
-
 #Crear la carpeta para el servidor FTP
 
 sudo mkdir /home/david/ftp
 
+sudo chown vagrant:vagrant /home/david/ftp
+sudo chmod 775 /home/david/ftp
 
 #Crear certificados de seguridad 
 
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt
-
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt 
 
 #Editar el archivo de configuracion vsftpd
 sudo cp /vagrant/vsftpd.conf /etc/vsftpd.conf
 
+# Agregamos el usuario  al grupo www-data
+sudo usermod -aG www-data david
+
 #Reiniciar el servicio vsftpd
 sudo systemctl restart vsftpd
+sudo systemctl restart nginx
 
-
-sudo chown -R www-data:www-data /var/www/mi_nuevo_sitio/html
