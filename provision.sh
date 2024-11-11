@@ -1,6 +1,12 @@
 #Actualizar repositorios e instalar Nginx
 sudo apt update
-sudo apt install -y nginx git vsftpd
+sudo apt install -y nginx 
+
+
+#instalar vsftpd
+sudo apt-get upgrade -y
+sudo apt-get install -y vsftpd
+sudo apt-get install -y git
 
 #Comprobamos que nginx se ha instalado y que está funcionando correctamente:
 systemctl status nginx
@@ -14,8 +20,8 @@ sudo mkdir -p /var/www/pagina_web/html
 sudo git clone https://github.com/cloudacademy/static-website-example /var/www/pagina_web/html
 
 #Asignar permisos correspondientes
-sudo chown -R www-data:www-data /var/www/pagina_web/html
-sudo chmod -R 755 /var/www/pagina_web
+sudo chown -R www-data:www-data /var/www/
+sudo chmod -R 775 /var/www/
 
 
 
@@ -89,22 +95,29 @@ sudo apt-get update
 sudo adduser david
 echo "david:david" | sudo chpasswd
 
+
+# Agregamos el usuario  al grupo www-data
+sudo usermod -aG www-data david
+
 #Crear la carpeta para el servidor FTP
 
 sudo mkdir /home/david/ftp
 
-sudo chown vagrant:vagrant /home/david/ftp
+sudo chown david:david /home/david/ftp
 sudo chmod 775 /home/david/ftp
 
-#Crear certificados de seguridad 
+sudo chown david:www-data /home/david/ftp
 
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt 
+
+#Copiamos certificados de seguridad 
+
+sudo cp /vagrant/vsftpd.crt  /etc/ssl/certs/vsftpd.crt 
+
+sudo cp /vagrant/vsftpd.key  /etc/ssl/private/vsftpd.key
 
 #Editar el archivo de configuracion vsftpd
 sudo cp /vagrant/vsftpd.conf /etc/vsftpd.conf
 
-# Agregamos el usuario  al grupo www-data
-sudo usermod -aG www-data david
 
 #Reiniciar el servicio vsftpd
 sudo systemctl restart vsftpd
