@@ -61,7 +61,7 @@ sudo mkdir -p /var/www/kaze/html
 #Nos aseguramos de que los permisos sean correctos 
 
 sudo chown -R www-data:www-data /var/www/kaze/html
-sudo chmod -R 755 /var/www/kaze
+sudo chmod -R 775 /var/www/kaze
 
 
 #Creamos el archivo de configuracion para la nueva pagina

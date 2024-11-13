@@ -99,7 +99,7 @@ sudo mkdir -p /var/www/kaze/html
 ### 13. Asignar Permisos para el Segundo Sitio Web
 ```bash
 sudo chown -R www-data:www-data /var/www/kaze/html
-sudo chmod -R 755 /var/www/kaze
+sudo chmod -R 775 /var/www/kaze
 ```
 - Asigna los permisos adecuados al directorio del segundo sitio web.
 
