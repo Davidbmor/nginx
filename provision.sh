@@ -111,15 +111,12 @@ sudo chown david:www-data /home/david/ftp
 
 # #Copiamos certificados de seguridad 
 
-# sudo cp /vagrant/vsftpd.crt  /etc/ssl/certs/vsftpd.crt 
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt -subj "/C=ES/ST=Granada/L=Granada/O=Global Security/OU=IES ZAIDIN VERGELES/CN=david.test"
 
-# sudo cp /vagrant/vsftpd.key  /etc/ssl/private/vsftpd.key
-
-# #Editar el archivo de configuracion vsftpd
-# sudo cp /vagrant/vsftpd.conf /etc/vsftpd.conf
+sudo cp -v /vagrant/vsftpd.conf /etc/vsftpd.conf
 
 
 # #Reiniciar el servicio vsftpd
-# sudo systemctl restart vsftpd
-# sudo systemctl restart nginx
+sudo systemctl restart vsftpd
+sudo systemctl restart nginx
 
