@@ -109,17 +109,17 @@ sudo chmod 775 /home/david/ftp
 sudo chown david:www-data /home/david/ftp
 
 
-#Copiamos certificados de seguridad 
+# #Copiamos certificados de seguridad 
 
-sudo cp /vagrant/vsftpd.crt  /etc/ssl/certs/vsftpd.crt 
+# sudo cp /vagrant/vsftpd.crt  /etc/ssl/certs/vsftpd.crt 
 
-sudo cp /vagrant/vsftpd.key  /etc/ssl/private/vsftpd.key
+# sudo cp /vagrant/vsftpd.key  /etc/ssl/private/vsftpd.key
 
-#Editar el archivo de configuracion vsftpd
-sudo cp /vagrant/vsftpd.conf /etc/vsftpd.conf
+# #Editar el archivo de configuracion vsftpd
+# sudo cp /vagrant/vsftpd.conf /etc/vsftpd.conf
 
 
-#Reiniciar el servicio vsftpd
-sudo systemctl restart vsftpd
-sudo systemctl restart nginx
+# #Reiniciar el servicio vsftpd
+# sudo systemctl restart vsftpd
+# sudo systemctl restart nginx
 
